@@ -10,13 +10,10 @@ spec:
     - name: workdir
       mountPath: /usr/share/nginx/html
   initContainers:
-  - name: install
+  - name: busybox
     image: busybox
-    command:
-    - wget
-    - "-O"
-    - "/work-dir/index.html"
-    - https://google.com
+    command: ["/bin/sh"]
+    args: ["-c", "echo '<html><h1>Hello, This Webpage was created by Init Container</h1><html>' >> /work-dir/index.html"]
     volumeMounts:
     - name: workdir
       mountPath: "/work-dir"
